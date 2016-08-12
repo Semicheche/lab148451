@@ -1,6 +1,7 @@
 package br.semicheche.servelets;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/venda")
-public class ServeletVenda extends HttpServlet {
+public class ServeletVenda extends HttpServlet implements Serializable {
 
 	/**
 	 * @author luciano
