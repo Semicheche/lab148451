@@ -1,5 +1,6 @@
 package br.semicheche.servelets;
 
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
@@ -15,12 +16,12 @@ import javax.servlet.http.HttpServlet;
 		@JMSDestinationDefinition( 
 			name = "java:/queue/QueuePedido",
 			interfaceName = "javax.jms.Queue",
-			destinationName = "QueuePedido"
+			destinationName = "MDBQueuePedido"
 		),
 		@JMSDestinationDefinition(
 			name = "java:/topic/TopicVenda",
 			interfaceName = "javax.jms.Topic",
-			destinationName = "TopicVenda"
+			destinationName = "MDBTopicVenda"
 		)
 	})
 @WebServlet("/Config")
@@ -39,5 +40,6 @@ public class Config extends HttpServlet {
 	
 	@Resource(lookup = "java:/topic/TopicVenda")
 	private Topic topic;
+	
 
 }

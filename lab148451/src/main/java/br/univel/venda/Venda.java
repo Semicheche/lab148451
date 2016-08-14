@@ -1,13 +1,15 @@
 package br.univel.venda;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Venda {
+public class Venda implements Serializable {
 	
 	private int codigo;
 	private String descricao;
 	private BigDecimal valorVenda;
+	private ArrayList<String> listaDeItems;
 	
 	
 	public int getCodigo() {
@@ -34,6 +36,5 @@ public class Venda {
 	public void setListaDeItems(ArrayList<String> listaDeItems) {
 		this.listaDeItems = listaDeItems;
 	}
-	private ArrayList<String> listaDeItems;
 
 }
