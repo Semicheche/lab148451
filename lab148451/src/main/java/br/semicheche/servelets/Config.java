@@ -2,8 +2,6 @@ package br.semicheche.servelets;
 
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.jms.JMSContext;
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;
 import javax.jms.Queue;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 			name = "java:/queue/QueuePedido",
 			interfaceName = "javax.jms.Queue",
 			destinationName = "MDBQueuePedido"
-		),
+		), 
 		@JMSDestinationDefinition(
 			name = "java:/topic/TopicVenda",
 			interfaceName = "javax.jms.Topic",
@@ -32,14 +30,11 @@ public class Config extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-    private JMSContext context;
 	
 	@Resource(lookup = "java:/queue/QueuePedido")
-	private Queue queue;
+	public Queue queue;
 	
 	@Resource(lookup = "java:/topic/TopicVenda")
-	private Topic topic;
+	public Topic topic;
 	
-
 }

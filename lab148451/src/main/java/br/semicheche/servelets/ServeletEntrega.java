@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.semicheche.ejbs.ProcessEntrega;
+import br.semicheche.ejbs.ProcessVenda;
+import br.semichehe.entrega.Entrega;
+
 @WebServlet("/entrega")
 public class ServeletEntrega extends HttpServlet implements Serializable {
 
@@ -26,8 +30,7 @@ public class ServeletEntrega extends HttpServlet implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-    private JMSContext context;
+	ProcessEntrega pe = new ProcessEntrega();
 	
 	@Resource(lookup = "java:/queue/QueuePedido")
 	private Queue queue;
@@ -38,7 +41,14 @@ public class ServeletEntrega extends HttpServlet implements Serializable {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		context.createProducer().send(topic, "Entrega msg");
+		resp.setContentType("txt/html");
+		resp.getWriter().println("Entregando Venda...");
+		
+		Entrega entrega = new Entrega();
+		entrega.setEndereco("Rua 1");
+		entrega.setIdVenda(1);
+		
+		pe.processarEntrega(entrega);
 	}
 
 }

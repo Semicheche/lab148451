@@ -2,6 +2,8 @@ package br.semicheche.servelets;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -14,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.semicheche.ejbs.ProcessVenda;
+import br.univel.venda.Venda;
+
 @WebServlet("/venda")
 public class ServeletVenda extends HttpServlet implements Serializable {
 
@@ -23,19 +28,25 @@ public class ServeletVenda extends HttpServlet implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-    private JMSContext context;
-	
-	@Resource(lookup = "java:/queue/QueuePedido")
-	private Queue queue;
-	
-	@Resource(lookup = "java:/topic/TopicVenda")
-	private Topic topic;
+    private ProcessVenda pv = new ProcessVenda();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		resp.getWriter().println("Teste Venda...");
-		context.createProducer().send(topic, "Venda Msg");
+		resp.getWriter().println("Criando Venda...");
+		
+		ArrayList<String> lista = new ArrayList<>();
+		lista.add("Produto 1");
+		lista.add("Produto 2");
+		lista.add("Produto 3");
+		lista.add("Produto 4");
+		
+		Venda venda = new Venda();
+		venda.setCodigo(1);
+		venda.setDescricao("venda 1");
+		venda.setValorVenda(new BigDecimal(10));
+		venda.setListaDeItems(lista);
+
+		pv.processarVenda(venda);
 	}
 }

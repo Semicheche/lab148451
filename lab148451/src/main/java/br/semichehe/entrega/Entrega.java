@@ -1,11 +1,11 @@
 package br.semichehe.entrega;
 
-import br.univel.venda.Venda;
+import java.io.Serializable;
 
-public class Entrega {
+public class Entrega implements Serializable {
 	
 	private String endereco;
-	private Venda venda;
+	private int idVenda;
 	
 	public String getEndereco() {
 		return endereco;
@@ -13,11 +13,11 @@ public class Entrega {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public Venda getVenda() {
-		return venda;
+	public int getIdVenda() {
+		return idVenda;
 	}
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setIdVenda(int idVenda) {
+		this.idVenda = idVenda;
 	}
 	
 }
