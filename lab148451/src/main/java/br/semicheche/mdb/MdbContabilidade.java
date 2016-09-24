@@ -10,11 +10,13 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import br.univel.venda.Venda;
+import br.semichehe.models.Venda;
+
 
 @MessageDriven(name = "MdbContabilidade", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
-		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic") })
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
+		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 public class MdbContabilidade implements MessageListener {
 
 	private final static Logger LOGGER = Logger.getLogger(MdbContabilidade.class.toString());
@@ -22,9 +24,11 @@ public class MdbContabilidade implements MessageListener {
 	@Override
 	public void onMessage(Message message) {
 
-		TextMessage msg = (TextMessage) message;
+		Venda msg = null;
+
 		try {
-			LOGGER.info(this.getClass().getSimpleName() + " => " + msg.getText());
+			msg = message.getBody(Venda.class);
+			LOGGER.info(this.getClass().getSimpleName() + " => " + msg.toString());
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

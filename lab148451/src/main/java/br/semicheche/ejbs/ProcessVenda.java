@@ -7,17 +7,17 @@ import javax.jms.JMSContext;
 import javax.jms.Topic;
 
 import br.semicheche.servelets.Config;
-import br.univel.venda.Venda;
+import br.semichehe.models.Venda;
+
 
 @Stateless
 public class ProcessVenda {
 	
 	@Inject
-	private JMSContext context;
 	private Config config;
 	
 	public void processarVenda(Venda venda) {
-		context.createProducer().send(config.topic, venda);
+		config.getContext().createProducer().send(config.getTopic(), venda);
 	}
 
 }

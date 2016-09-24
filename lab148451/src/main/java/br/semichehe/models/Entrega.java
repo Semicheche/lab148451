@@ -1,4 +1,4 @@
-package br.semichehe.entrega;
+package br.semichehe.models;
 
 import java.io.Serializable;
 
@@ -18,6 +18,10 @@ public class Entrega implements Serializable {
 	}
 	public void setIdVenda(int idVenda) {
 		this.idVenda = idVenda;
+	}
+	@Override
+	public String toString() {
+		return "Entrega [endereco=" + endereco + ", idVenda=" + idVenda + "]";
 	}
 	
 }

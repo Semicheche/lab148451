@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.semicheche.ejbs.ProcessVenda;
-import br.univel.venda.Venda;
+import br.semichehe.models.Venda;
 
 @WebServlet("/venda")
 public class ServeletVenda extends HttpServlet implements Serializable {
@@ -28,7 +28,8 @@ public class ServeletVenda extends HttpServlet implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-    private ProcessVenda pv = new ProcessVenda();
+	@Inject
+    private ProcessVenda pv;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

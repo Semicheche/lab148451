@@ -1,4 +1,4 @@
-package br.univel.venda;
+package br.semichehe.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -35,6 +35,11 @@ public class Venda implements Serializable {
 	}
 	public void setListaDeItems(ArrayList<String> listaDeItems) {
 		this.listaDeItems = listaDeItems;
+	}
+	@Override
+	public String toString() {
+		return "Venda [codigo=" + codigo + ", descricao=" + descricao + ", valorVenda=" + valorVenda + ", listaDeItems="
+				+ listaDeItems + "]";
 	}
 
 }
