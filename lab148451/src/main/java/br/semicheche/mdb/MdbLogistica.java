@@ -1,13 +1,10 @@
 package br.semicheche.mdb;
 
-import java.util.logging.Logger;
-
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
 
 import br.semichehe.models.Entrega;
 
@@ -16,9 +13,9 @@ import br.semichehe.models.Entrega;
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 
-public class MdbLogistica implements MessageListener {
+public class MdbLogistica extends AbstractMdb implements MessageListener {
 
-	private final static Logger LOGGER = Logger.getLogger(MdbLogistica.class.toString());
+	private String nome = this.getClass().getSimpleName();
 
 	@Override
 	public void onMessage(Message message) {
@@ -26,9 +23,11 @@ public class MdbLogistica implements MessageListener {
 
 		try {
 			msg = (Entrega) message.getBody(Entrega.class);
-			LOGGER.info(msg.toString());
+			
+			registro(nome, msg.toString());
 			Thread.sleep(3000);
-			LOGGER.info("Entrega Despachada...");
+			registro(nome, "Entrega Despachada...");
+			
 		} catch (InterruptedException | JMSException e) {
 			e.printStackTrace();
 		}
